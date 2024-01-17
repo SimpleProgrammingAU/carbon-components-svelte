@@ -77,6 +77,18 @@
   /** Set to `true` to use inline version */
   export let inline = false;
 
+  /**
+   * Set HTML attributes on the `label` element
+   * @type {import('svelte/elements').HTMLLabelAttributes}
+   */
+  export let labelAttributes = {};
+
+  /**
+   * Set HTML attributes on the `input` element
+   * @type {import('svelte/elements').HTMLInputAttributes}
+   */
+  export let inputAttributes = {};
+
   import { getContext } from "svelte";
   import WarningFilled from "../icons/WarningFilled.svelte";
   import WarningAltFilled from "../icons/WarningAltFilled.svelte";
@@ -101,9 +113,9 @@
   class:bx--text-input-wrapper--light="{light}"
   class:bx--text-input-wrapper--inline="{inline}"
   on:click
-  on:mouseover
-  on:mouseenter
-  on:mouseleave
+  on:pointerover
+  on:pointerenter
+  on:pointerleave
 >
   {#if inline}
     <label
@@ -114,19 +126,22 @@
       class:bx--label--inline="{inline}"
       class:bx--label--inline--sm="{inline && size === 'sm'}"
       class:bx--label--inline--lg="{inline && (size === 'lg' || size === 'xl')}"
+      {...labelAttributes}
     >
       <slot name="labelText">
         {labelText}
       </slot>
     </label>
-    {#if !isFluid && helperText}
+    {#if !isFluid && (helperText || $$slots.helperText)}
       <div
         id="{helperId}"
         class:bx--form__helper-text="{true}"
         class:bx--form__helper-text--disabled="{disabled}"
         class:bx--form__helper-text--inline="{inline}"
       >
-        {helperText}
+        <slot name="helperText">
+          {helperText}
+        </slot>
       </div>
     {/if}
   {/if}
@@ -187,22 +202,22 @@
         class:bx--text-input--warning="{warn}"
         class:bx--text-input--sm="{size === 'sm'}"
         class:bx--text-input--lg="{size === 'lg' || size === 'xl'}"
-        {...$$restProps}
+        {...inputAttributes}
         on:change
         on:input
-        on:input="{({ target }) => {
-          value = target.value;
-        }}"
         on:keydown
         on:keyup
         on:focus
         on:blur
         on:paste
       />
-      {#if isFluid && invalid}
+      {#if isFluid && (invalid || $$slots.invalidText)}
         <hr class="bx--text-input__divider" />
         <div class="bx--form-requirement" id="{errorId}">
-          {invalidText}
+          '
+          <slot name="invalidText">
+            {invalidText}
+          </slot>
         </div>
       {/if}
       {#if !(isFluid && invalid)}
@@ -230,7 +245,9 @@
             <span class:bx--assistive-text="{true}">
               {#if type === "text"}
                 {hidePasswordLabel}
-              {:else}{showPasswordLabel}{/if}
+              {:else}
+                {showPasswordLabel}
+              {/if}
             </span>
           {/if}
           {#if type === "text"}
@@ -241,18 +258,22 @@
         </button>
       {/if}
     </div>
-    {#if !isFluid && invalid}
+    {#if !isFluid && (invalid || $$slots.invalidText)}
       <div class:bx--form-requirement="{true}" id="{errorId}">
-        {invalidText}
+        <slot name="invalidText">
+          {invalidText}
+        </slot>
       </div>
     {/if}
-    {#if !invalid && !warn && !isFluid && !inline && helperText}
+    {#if !invalid && !warn && !isFluid && !inline && (helperText || $$slots.helperText)}
       <div
         class:bx--form__helper-text="{true}"
         class:bx--form__helper-text--disabled="{disabled}"
         class:bx--form__helper-text--inline="{inline}"
       >
-        {helperText}
+        <slot name="helperText">
+          {helperText}
+        </slot>
       </div>
     {/if}
     {#if !isFluid && !invalid && warn}
