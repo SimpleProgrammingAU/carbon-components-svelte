@@ -1,15 +1,18 @@
 <script>
-  /**
-   * Set the size of the input
-   * @type {"sm" | "lg"}
-   */
-  export let size = undefined;
+  /** Specify the input value */
+  export let value = "";
+
+  /** Obtain a reference to the input HTML element */
+  export let ref = null;
 
   /**
-   * Specify the input value
-   * @type {number | string}
+   * Set the size of the input
+   * @type {"sm" | "md" | "lg"}
    */
-  export let value = "";
+  export let size = "md";
+
+  /** Specify the placeholder text */
+  export let placeholder = "";
 
   /**
    * Set to `"text"` to toggle the password visibility
@@ -17,8 +20,11 @@
    */
   export let type = "password";
 
-  /** Specify the placeholder text */
-  export let placeholder = "";
+  /** Set to `true` to enable the light variant */
+  export let light = false;
+
+  /** Set to `true` to disable the input */
+  export let disabled = false;
 
   /** Specify the hide password label text */
   export let hidePasswordLabel = "Hide password";
@@ -37,12 +43,6 @@
    * @type {"top" | "right" | "bottom" | "left"}
    */
   export let tooltipPosition = "bottom";
-
-  /** Set to `true` to enable the light variant */
-  export let light = false;
-
-  /** Set to `true` to disable the input */
-  export let disabled = false;
 
   /** Specify the helper text */
   export let helperText = "";
@@ -65,9 +65,6 @@
   /** Specify the warning state text */
   export let warnText = "";
 
-  /** Set to `true` to use inline version */
-  export let inline = false;
-
   /** Set an id for the input element */
   export let id = "ccs-" + Math.random().toString(36);
 
@@ -77,8 +74,8 @@
    */
   export let name = undefined;
 
-  /** Obtain a reference to the input HTML element */
-  export let ref = null;
+  /** Set to `true` to use inline version */
+  export let inline = false;
 
   import { getContext } from "svelte";
   import WarningFilled from "../icons/WarningFilled.svelte";
