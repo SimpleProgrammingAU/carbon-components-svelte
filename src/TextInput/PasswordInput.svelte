@@ -20,7 +20,12 @@
    */
   export let type = "password";
 
-  /** Set to `true` to enable the light variant */
+  /**
+   * Set to `true` to enable the light variant
+   * For use on $ui-01 backgrounds only. Don't use this to make tile background color same as container background color
+   * The light prop for `TextInput` has been deprecated in favor of the new `Layer` Layer component. It will be removed in the next major release
+   * @deprecated
+   */
   export let light = false;
 
   /** Set to `true` to disable the input */
@@ -94,6 +99,7 @@
   import WarningAltFilled from "../icons/WarningAltFilled.svelte";
   import View from "../icons/View.svelte";
   import ViewOff from "../icons/ViewOff.svelte";
+  import Tooltip from "../Tooltip/Tooltip.svelte";
 
   const ctx = getContext("Form");
 
@@ -125,7 +131,8 @@
       class:bx--label--disabled="{disabled}"
       class:bx--label--inline="{inline}"
       class:bx--label--inline--sm="{inline && size === 'sm'}"
-      class:bx--label--inline--lg="{inline && (size === 'lg' || size === 'xl')}"
+      class:bx--label--inline--md="{inline && size === 'md'}"
+      class:bx--label--inline--lg="{inline && size === 'lg'}"
       {...labelAttributes}
     >
       <slot name="labelText">
@@ -153,7 +160,8 @@
       class:bx--label--disabled="{disabled}"
       class:bx--label--inline="{inline}"
       class:bx--label--inline--sm="{inline && size === 'sm'}"
-      class:bx--label--inline--lg="{inline && (size === 'lg' || size === 'xl')}"
+      class:bx--label--inline--md="{inline && size === 'md'}"
+      class:bx--label--inline--lg="{inline && size === 'lg'}"
     >
       <slot name="labelText">
         {labelText}
@@ -201,7 +209,8 @@
         class:bx--text-input--invalid="{invalid}"
         class:bx--text-input--warning="{warn}"
         class:bx--text-input--sm="{size === 'sm'}"
-        class:bx--text-input--lg="{size === 'lg' || size === 'xl'}"
+        class:bx--text-input--md="{size === 'md'}"
+        class:bx--text-input--lg="{size === 'lg'}"
         {...inputAttributes}
         on:change
         on:input
