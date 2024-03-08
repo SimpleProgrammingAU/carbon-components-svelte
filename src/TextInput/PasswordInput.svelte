@@ -1,15 +1,24 @@
 <script>
-  /** Specify the input value */
-  export let value = "";
+  import { getContext } from "svelte";
+  import WarningFilled from "../icons/WarningFilled.svelte";
+  import WarningAltFilled from "../icons/WarningAltFilled.svelte";
+  import View from "../icons/View.svelte";
+  import ViewOff from "../icons/ViewOff.svelte";
 
   /** Obtain a reference to the input HTML element */
   export let ref = null;
+
+  /** Specify the input value */
+  export let value = "";
 
   /**
    * Set the size of the input
    * @type {"sm" | "md" | "lg"}
    */
   export let size = "md";
+
+  /** Set an id for the input element */
+  export let id = "ccs-" + Math.random().toString(36);
 
   /** Specify the placeholder text */
   export let placeholder = "";
@@ -70,9 +79,6 @@
   /** Specify the warning state text */
   export let warnText = "";
 
-  /** Set an id for the input element */
-  export let id = "ccs-" + Math.random().toString(36);
-
   /**
    * Specify a name attribute for the input
    * @type {string}
@@ -93,13 +99,6 @@
    * @type {import('svelte/elements').HTMLInputAttributes}
    */
   export let inputAttributes = {};
-
-  import { getContext } from "svelte";
-  import WarningFilled from "../icons/WarningFilled.svelte";
-  import WarningAltFilled from "../icons/WarningAltFilled.svelte";
-  import View from "../icons/View.svelte";
-  import ViewOff from "../icons/ViewOff.svelte";
-  import Tooltip from "../Tooltip/Tooltip.svelte";
 
   const ctx = getContext("Form");
 
